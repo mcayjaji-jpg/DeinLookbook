@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* ===========================
+       Allgemeine Layout-Einstellungen
+       =========================== */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 20px;
+      background-color: #f0f0f0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    /* ===========================
+       Hintergrund-Bild
+       =========================== */
+    .background-group {
+      position: fixed;
+      inset: 0;
+      background-image: url('PNG/Hintergrund.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 0;
+    }
+
+    /* ===========================
+       Overlay-Bild (über Hintergrund)
+       =========================== */
+    .background-overlay-group {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .background-overlay-group img {
+      width: 85%;
+      height: auto;
+      opacity: 0.9;
+      transform: translateX(5%);
+    }
+
+    /* ===========================
+       Lookbook mit Figur
+       =========================== */
+    .lookbook-group {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 80px;
+    }
+
+    .image-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .arrow {
+      font-size: 40px;
+      cursor: pointer;
+      user-select: none;
+      padding: 0 20px;
+      color: #f9e5cb;
+      z-index: 10;
+    }
+
+    .base {
+      max-width: 300px;
+      height: auto;
+    }
+
+    .layer {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 300px;
+      height: auto;
+      pointer-events: none;
+    }
+
+    /* ===========================
+       Button-Gruppe (Kategorien)
+       =========================== */
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 3;
+      margin-top: 25px;
+    }
+
+    .button-group img {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: 0.3s;
+    }
+
+    .button-group img.active {
+      border: 2px solid #f9e5cb;
+      background-color: #fff5e6;
+      border-radius: 10px;
+    }
+
+    /* ===========================
+       Responsive (für Handy)
+       =========================== */
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        overflow-y: auto;
+      }
+
+      .lookbook-group {
+        margin-top: 40px;
+      }
+
+      .button-group {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .background-overlay-group img {
+        width: 110%;
+        transform: translateY(-5%) translateX(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hintergrund -->
+  <div class="background-group"></div>
+
+  <!-- Overlay -->
+  <div class="background-overlay-group">
+    <img src="PNG/Titel.png" alt="Fixiertes Overlay">
+  </div>
+
+  <!-- Figur + Layer -->
+  <div class="lookbook-group">
+    <h1>Mein Lookbook</h1>
+
+    <div class="image-container">
+      <span class="arrow" onclick="prevItem()">&#8592;</span>
+
+      <!-- Basisfigur -->
+      <img src="PNG/Base/Base.png" alt="Base" class="base">
+
+      <!-- Layer (alle Kleidungsteile) -->
+      <img src="PNG/Socken/Socken_1.png" alt="socken" id="socken" class="layer">
+      <img src="PNG/Schuhe/Schuhe_1.png" alt="schuhe" id="schuhe" class="layer">
+      <img src="PNG/Unterteile/Unterteil_1.png" alt="unterteil" id="unterteil" class="layer">
+      <img src="PNG/Shirts/Shirt_0.png" alt="shirts" id="shirts" class="layer">
+      <img src="PNG/Oberteile/Oberteil_0.png" alt="oberteile" id="oberteile" class="layer">
+      <img src="PNG/Jacken/00.png" alt="jacke" id="jacke" class="layer">
+      <img src="PNG/MakeUp/Makeup_1.png" alt="makeup" id="makeup" class="layer">
+      <img src="PNG/Gürtel/00.png" alt="gürtel" id="gürtel" class="layer">
+      <img src="PNG/Ketten/00.png" alt="kette" id="kette" class="layer">
+      <img src="PNG/Ketten_2/00.png" alt="kette_2" id="kette_2" class="layer">
+      <img src="PNG/Accessoir_2/00.png" alt="accessoires_2" id="accessoires_2" class="layer">
+      <img src="PNG/Accessoir_1/00.png" alt="accessoires_1" id="accessoires_1" class="layer">
+      <img src="PNG/Frisuren/Frisur_1.png" alt="haare" id="haare" class="layer">
+      <img src="PNG/Ohrringe_2/Ohrringe_1.png" alt="ohrringe_2" id="ohrringe_2" class="layer">
+      <img src="PNG/Ohrringe_1/Ohrringe_3.png" alt="ohrringe_1" id="ohrringe_1" class="layer">
+
+      <span class="arrow" onclick="nextItem()">&#8594;</span>
+    </div>
+  </div>
+
+  <!-- Kategorie-Buttons -->
+  <div class="button-group">
+    <img src="PNG/Button/Frisur.png" alt="Haare" onclick="setCategory('haare')" id="icon_haare">
+    <img src="PNG/Button/Ohrringe.png" alt="Ohrringe_1" onclick="setCategory('ohrringe_1')" id="icon_ohrringe_1">
+    <img src="PNG/Button/Ohrringe.png" alt="Ohrringe_2" onclick="setCategory('ohrringe_2')" id="icon_ohrringe_2">
+    <img src="PNG/Button/Accessoires_1.png" alt="Accessoires_1" onclick="setCategory('accessoires_1')" id="icon_accessoires_1">
+    <img src="PNG/Button/Accessoires_2.png" alt="Accessoires_2" onclick="setCategory('accessoires_2')" id="icon_accessoires_2">
+    <img src="PNG/Button/Kette.png" alt="Kette" onclick="setCategory('kette')" id="icon_kette">
+    <img src="PNG/Button/Kette_2.png" alt="Kette_2" onclick="setCategory('kette_2')" id="icon_kette_2">
+    <img src="PNG/Button/Gürtel.png" alt="Gürtel" onclick="setCategory('gürtel')" id="icon_gürtel">
+    <img src="PNG/Button/Makeup.png" alt="Makeup" onclick="setCategory('makeup')" id="icon_makeup">
+    <img src="PNG/Button/Shirt.png" alt="Shirts" onclick="setCategory('shirts')" id="icon_shirts">
+    <img src="PNG/Button/Oberteil.png" alt="Oberteile" onclick="setCategory('oberteile')" id="icon_oberteile">
+    <img src="PNG/Button/Jacke.png" alt="Jacke" onclick="setCategory('jacke')" id="icon_jacke">
+    <img src="PNG/Button/Hose.png" alt="Unterteil" onclick="setCategory('unterteil')" id="icon_unterteil">
+    <img src="PNG/Button/Socke.png" alt="Socken" onclick="setCategory('socken')" id="icon_socken">
+    <img src="PNG/Button/Schuhe.png" alt="Schuhe" onclick="setCategory('schuhe')" id="icon_schuhe">
+  </div>
+
+  <!-- ===========================
+       JavaScript
+       =========================== -->
+  <script>
+    const items = {
+      haare: ["PNG/Frisuren/Frisur_1.png","PNG/Frisuren/Frisur_2.png","PNG/Frisuren/Frisur_3.png","PNG/Frisuren/Frisur_4.png","PNG/Frisuren/Frisur_5.png"],
+      makeup: ["PNG/MakeUp/Makeup_1.png","PNG/MakeUp/Makeup_2.png","PNG/MakeUp/00.png"],
+      ohrringe_1: ["PNG/Ohrringe_1/Ohrringe_3.png","PNG/Ohrringe_1/Ohrringe_4.png","PNG/Ohrringe_1/Ohrringe_5.png","PNG/Ohrringe_1/Ohrringe_6.png","PNG/Ohrringe_1/Ohrringe_7.png","PNG/Ohrringe_1/00.png"],
+      ohrringe_2: ["PNG/Ohrringe_2/Ohrringe_1.png","PNG/Ohrringe_2/Ohrringe_2.png","PNG/Ohrringe_2/00.png"],
+      kette: ["PNG/Ketten/Kette_1.png","PNG/Ketten/Kette_2.png","PNG/Ketten/Kette_3.png","PNG/Ketten/Kette_4.png","PNG/Ketten/Kette_5.png","PNG/Ketten/Kette_6.png","PNG/Ketten/Kette_7.png","PNG/Ketten/Kette_8.png","PNG/Ketten/Kette_9.png","PNG/Ketten/Kette_10.png","PNG/Ketten/Kette_11.png","PNG/Ketten/00.png"],
+      kette_2: ["PNG/Ketten/Kette_1.png","PNG/Ketten/Kette_2.png","PNG/Ketten/Kette_3.png","PNG/Ketten/Kette_4.png","PNG/Ketten/Kette_5.png","PNG/Ketten/Kette_6.png","PNG/Ketten/Kette_7.png","PNG/Ketten/Kette_8.png","PNG/Ketten/Kette_9.png","PNG/Ketten/Kette_10.png","PNG/Ketten/Kette_11.png","PNG/Ketten/00.png"],
+      gürtel: ["PNG/Gürtel/Gürtel_1.png","PNG/Gürtel/Gürtel_2.png","PNG/Gürtel/Gürtel_3.png","PNG/Gürtel/Gürtel_4.png","PNG/Gürtel/Gürtel_5.png","PNG/Gürtel/00.png"],
+      accessoires_1: ["PNG/Accessoir_1/Accessoir_1.png","PNG/Accessoir_1/Accessoir_2.png","PNG/Accessoir_1/Accessoir_3.png","PNG/Accessoir_1/Accessoir_4.png","PNG/Accessoir_1/Accessoir_5.png","PNG/Accessoir_1/00.png"],
+      accessoires_2: ["PNG/Accessoir_2/Accessoir_1.png","PNG/Accessoir_2/Accessoir_2.png","PNG/Accessoir_2/Accessoir_3.png","PNG/Accessoir_2/Accessoir_4.png","PNG/Accessoir_2/Accessoir_5.png","PNG/Accessoir_2/00.png"],
+      shirts: ["PNG/Shirts/Shirt_0.png","PNG/Shirts/Shirt_1.png","PNG/Shirts/Shirt_2.png","PNG/Shirts/Shirt_3.png","PNG/Shirts/Shirt_4.png","PNG/Shirts/Shirt_5.png","PNG/Shirts/Shirt_6.png","PNG/Shirts/Shirt_7.png","PNG/Shirts/Shirt_8.png","PNG/Shirts/Shirt_9.png","PNG/Shirts/Shirt_10.png","PNG/Shirts/Shirt_11.png","PNG/Shirts/Shirt_12.png","PNG/Shirts/Shirt_13.png","PNG/Shirts/Shirt_14.png","PNG/Shirts/Shirt_15.png","PNG/Shirts/Shirt_16.png","PNG/Shirts/Shirt_17.png","PNG/Shirts/Shirt_18.png","PNG/Shirts/Shirt_19.png","PNG/Shirts/Shirt_20.png","PNG/Shirts/Shirt_21.png","PNG/Shirts/Shirt_22.png","PNG/Shirts/Shirt_23.png","PNG/Shirts/Shirt_24.png","PNG/Shirts/Shirt_25.png","PNG/Shirts/Shirt_26.png","PNG/Shirts/Shirt_27.png","PNG/Shirts/Shirt_28.png","PNG/Shirts/Shirt_29.png","PNG/Shirts/Shirt_30.png","PNG/Shirts/Shirt_31.png","PNG/Shirts/Shirt_32.png","PNG/Shirts/00.png"],
+      oberteile: ["PNG/Oberteile/Oberteil_0.png","PNG/Oberteile/Oberteil_1.png","PNG/Oberteile/Oberteil_2.png","PNG/Oberteile/Oberteil_3.png","PNG/Oberteile/Oberteil_4.png","PNG/Oberteile/Oberteil_5.png","PNG/Oberteile/Oberteil_6.png","PNG/Oberteile/Oberteil_7.png","PNG/Oberteile/Oberteil_8.png","PNG/Oberteile/Oberteil_9.png","PNG/Oberteile/Oberteil_10.png","PNG/Oberteile/Oberteil_11.png","PNG/Oberteile/Oberteil_12.png","PNG/Oberteile/Oberteil_13.png","PNG/Oberteile/Oberteil_14.png","PNG/Oberteile/Oberteil_15.png","PNG/Oberteile/Oberteil_16.png","PNG/Oberteile/Oberteil_17.png","PNG/Oberteile/Oberteil_18.png","PNG/Oberteile/Oberteil_19.png","PNG/Oberteile/Oberteil_20.png","PNG/Oberteile/Oberteil_21.png","PNG/Oberteile/Oberteil_22.png","PNG/Oberteile/Oberteil_23.png","PNG/Oberteile/Oberteil_24.png","PNG/Oberteile/Oberteil_25.png","PNG/Oberteile/Oberteil_26.png","PNG/Oberteile/Oberteil_27.png","PNG/Oberteile/Oberteil_28.png","NG/Oberteile/00.png"],
+      jacke: ["PNG/Jacken/Jacke_1.png","PNG/Jacken/Jacke_2.png","PNG/Jacken/Jacke_3.png","PNG/Jacken/00.png"],
+      unterteil: ["PNG/Unterteile/Unterteil_1.png","PNG/Unterteile/Unterteil_2.png","PNG/Unterteile/Unterteil_3.png","PNG/Unterteile/Unterteil_4.png","PNG/Unterteile/Unterteil_5.png","PNG/Unterteile/Unterteil_6.png","PNG/Unterteile/Unterteil_7.png","PNG/Unterteile/Unterteil_8.png","PNG/Unterteile/Unterteil_9.png","PNG/Unterteile/Unterteil_10.png","PNG/Unterteile/Unterteil_11.png","PNG/Unterteile/Unterteil_12.png","PNG/Unterteile/Unterteil_13.png","PNG/Unterteile/Unterteil_14.png","PNG/Unterteile/Unterteil_15.png","PNG/Unterteile/00.png"],
+      socken: ["PNG/Socken/Socken_1.png","PNG/Socken/Socken_2.png","PNG/Socken/Socken_3.png","PNG/Socken/Socken_4.png","PNG/Socken/Socken_5.png","PNG/Socken/00.png"],
+      schuhe: ["PNG/Schuhe/Schuhe_1.png","PNG/Schuhe/Schuhe_2.png","PNG/Schuhe/Schuhe_3.png","PNG/Schuhe/00.png"],
+    };
+
+    const currentIndex = {
+      haare: 0, shirts: 0, unterteil: 0, kette: 0, kette_2: 0, makeup: 0,
+      oberteile: 0, ohrringe_1: 0, ohrringe_2: 0, schuhe: 0, socken: 0, gürtel: 0,
+      accessoires_1: 0, accessoires_2: 0, jacke: 0,
+    };
+
+    let activeCategory = "haare";
+
+    function updateImage(category) {
+      document.getElementById(category).src = items[category][currentIndex[category]];
+    }
+
+    function nextItem() {
+      currentIndex[activeCategory] = (currentIndex[activeCategory] + 1) % items[activeCategory].length;
+      updateImage(activeCategory);
+    }
+
+    function prevItem() {
+      currentIndex[activeCategory] = (currentIndex[activeCategory] - 1 + items[activeCategory].length) % items[activeCategory].length;
+      updateImage(activeCategory);
+    }
+
+    function setCategory(category) {
+      activeCategory = category;
+      document.querySelectorAll(".button-group img").forEach(img => img.classList.remove("active"));
+      document.getElementById("icon_" + category).classList.add("active");
+    }
+
+    setCategory("haare");
+  </script>
+</body>
+</html>
